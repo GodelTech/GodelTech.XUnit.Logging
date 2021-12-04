@@ -37,4 +37,9 @@
 		<ProjectReference Include="..\..\src\GodelTech.XUnit.Logging\GodelTech.XUnit.Logging.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Fakes\Business\NewFolder\" />
+	  <Folder Include="Fakes\Controllers\" />
+	</ItemGroup>
+
 </Project>
