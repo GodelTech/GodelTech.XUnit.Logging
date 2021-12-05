@@ -22,8 +22,8 @@ namespace GodelTech.XUnit.Logging.IntegrationTests
                     x =>
                     {
                         x.UseStartup<TestStartup>()
-                            .UseTestLogging(Output, TestLoggerContextAccessor)
-                            .UseTestServer();
+                            .UseTestServer()
+                            .ConfigureTestLogging(Output, TestLoggerContextAccessor);
                     }
                 );
 

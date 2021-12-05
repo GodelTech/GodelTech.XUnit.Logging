@@ -46,19 +46,29 @@ namespace GodelTech.XUnit.Logging
             Exception exception,
             Func<TState, Exception, string> formatter)
         {
+            if (!IsEnabled(logLevel)) return;
+
             if (formatter == null) throw new ArgumentNullException(nameof(formatter));
 
-            var entry = new TestLogEntry(
-                logLevel,
-                eventId,
-                state,
-                exception,
-                (obj, e) => formatter.Invoke((TState) obj, e)
-            );
+            if (_output != null)
+            {
+                _output.WriteLine(formatter.Invoke(state, exception));
+            }
 
-            _testLoggerContextAccessor.TestLoggerContext.Entries.Add(entry);
+            if (_testLoggerContextAccessor != null)
+            {
+                var entry = new TestLogEntry(
+                    logLevel,
+                    eventId,
+                    state,
+                    exception,
+                    (obj, e) => formatter.Invoke((TState)obj, e),
+                    _categoryName,
+                    _usesScopes
+                );
 
-            _output.WriteLine(formatter.Invoke(state, exception));
+                _testLoggerContextAccessor.TestLoggerContext.Entries.Add(entry);
+            }
         }
 
         /// <inheritdoc />

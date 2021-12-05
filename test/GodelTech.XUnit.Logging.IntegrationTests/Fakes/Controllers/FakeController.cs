@@ -25,8 +25,9 @@ namespace GodelTech.XUnit.Logging.IntegrationTests.Fakes.Controllers
         [ProducesResponseType(typeof(IList<string>), StatusCodes.Status200OK)]
         public IActionResult GetList()
         {
-            _logger.LogInformation("message one");
+            _logger.LogDebug("Start request");
 
+            _logger.LogInformation("Get items from service");
             var list = _service.GetList();
 
             return Ok(list);

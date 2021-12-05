@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -12,7 +13,7 @@ using Xunit.Abstractions;
 
 namespace GodelTech.XUnit.Logging.IntegrationTests.DependencyInjection
 {
-    public sealed class LoggingExtensionsTests : IDisposable
+    public sealed class WebHostBuilderExtensionsTests : IDisposable
     {
         private static readonly string[] FakeJsonStrings = new string[]
         {
@@ -23,7 +24,7 @@ namespace GodelTech.XUnit.Logging.IntegrationTests.DependencyInjection
 
         private readonly AppTestFixture _fixture;
 
-        public LoggingExtensionsTests(ITestOutputHelper output)
+        public WebHostBuilderExtensionsTests(ITestOutputHelper output)
         {
             _fixture = new AppTestFixture();
             _fixture.Output = output;
@@ -70,7 +71,7 @@ namespace GodelTech.XUnit.Logging.IntegrationTests.DependencyInjection
         }
 
         [Fact]
-        public async Task UseTestLogging_WhenList_Success()
+        public async Task ConfigureTestLogging_Success()
         {
             // Arrange
             var client = CreateClient();
@@ -90,7 +91,35 @@ namespace GodelTech.XUnit.Logging.IntegrationTests.DependencyInjection
                 await result.Content.ReadAsStringAsync()
             );
 
-            var a = _fixture.TestLoggerContextAccessor.TestLoggerContext.Entries;
+            // todo: v.rodchenko: need to find good solution on how to make Assertion for logs
+            var logs = _fixture
+                .TestLoggerContextAccessor
+                .TestLoggerContext
+                .Entries;
+
+            var controllerLog = Assert.Single(
+                logs.Where(
+                    x =>
+                        x.CategoryName ==
+                        "GodelTech.XUnit.Logging.IntegrationTests.Fakes.Controllers.FakeController"
+                )
+            );
+            Assert.Equal(
+                "Get items from service",
+                controllerLog.Message
+            );
+
+            var serviceLog = Assert.Single(
+                logs.Where(
+                    x =>
+                        x.CategoryName ==
+                        "GodelTech.XUnit.Logging.IntegrationTests.Fakes.Business.FakeService"
+                )
+            );
+            Assert.Equal(
+                "Get list",
+                serviceLog.Message
+            );
         }
     }
 }
