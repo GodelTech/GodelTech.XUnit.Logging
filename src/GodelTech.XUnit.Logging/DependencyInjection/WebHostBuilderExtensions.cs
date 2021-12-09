@@ -17,6 +17,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <param name="output">The <see cref="ITestOutputHelper" />.</param>
         /// <param name="testLoggerContextAccessor">The <see cref="ITestLoggerContextAccessor"/>.</param>
         /// <returns>The <see cref="IWebHostBuilder"/>.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("SonarQube", "S4792: Make sure that this logger's configuration is safe.", Justification = "By design.")]
         public static IWebHostBuilder ConfigureTestLogging(
             this IWebHostBuilder builder,
             ITestOutputHelper output = null,

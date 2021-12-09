@@ -21,9 +21,6 @@ dotnet_style_qualification_for_method = false
 # CA2007: Do not directly await a Task
 dotnet_diagnostic.CA2007.severity = none
 
-# S4792: Make sure that this logger's configuration is safe.
-dotnet_diagnostic.S4792.severity = none
-
 # Tests C# files
 [test/**.cs]
 
