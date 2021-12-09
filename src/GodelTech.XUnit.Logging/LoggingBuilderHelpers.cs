@@ -40,7 +40,7 @@ namespace GodelTech.XUnit.Logging
 
             var includeScopes = logging.GetValue("Console:IncludeScopes", false);
 
-            if (includeScopes == false)
+            if (!includeScopes)
             {
                 includeScopes = logging.GetValue("IncludeScopes", false);
             }
