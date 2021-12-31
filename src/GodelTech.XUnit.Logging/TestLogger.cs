@@ -62,7 +62,7 @@ namespace GodelTech.XUnit.Logging
                     eventId,
                     state,
                     exception,
-                    (obj, e) => formatter.Invoke((TState)obj, e),
+                    (obj, e) => formatter.Invoke((TState) obj, e),
                     _categoryName,
                     _usesScopes
                 );
