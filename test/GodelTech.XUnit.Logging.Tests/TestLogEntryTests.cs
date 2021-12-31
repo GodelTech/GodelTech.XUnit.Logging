@@ -34,6 +34,7 @@ namespace GodelTech.XUnit.Logging.Tests
             );
 
             // Assert
+            Assert.NotNull(result);
             Assert.Equal(LogLevel.Critical, result.LogLevel);
             Assert.Equal(eventId, result.EventId);
             Assert.Equal(state, result.State);

@@ -20,7 +20,7 @@
         {
             get
             {
-                return _testLoggerContextCurrent?.Context;
+                return _testLoggerContextCurrent.Context;
             }
             set
             {

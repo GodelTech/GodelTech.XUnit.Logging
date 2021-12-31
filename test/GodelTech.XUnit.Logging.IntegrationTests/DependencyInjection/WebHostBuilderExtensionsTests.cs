@@ -91,7 +91,6 @@ namespace GodelTech.XUnit.Logging.IntegrationTests.DependencyInjection
                 await result.Content.ReadAsStringAsync()
             );
 
-            // todo: v.rodchenko: need to find good solution on how to make Assertion for logs
             var logs = _fixture
                 .TestLoggerContextAccessor
                 .TestLoggerContext
