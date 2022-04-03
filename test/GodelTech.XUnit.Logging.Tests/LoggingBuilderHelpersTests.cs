@@ -133,6 +133,8 @@ namespace GodelTech.XUnit.Logging.Tests
             Action<ILoggingBuilder> configureLoggingBuilder,
             bool expectedResult)
         {
+            if (configureLoggingBuilder == null) throw new ArgumentNullException(nameof(configureLoggingBuilder));
+
             // Arrange
             configureLoggingBuilder(_mockLoggingBuilder.Object);
 

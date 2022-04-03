@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using GodelTech.XUnit.Logging.IntegrationTests.Fakes.Business.Contracts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -21,13 +22,39 @@ namespace GodelTech.XUnit.Logging.IntegrationTests.Fakes.Controllers
             _logger = logger;
         }
 
+        private static readonly Action<ILogger, Exception> LogGetListDebugCallback
+            = LoggerMessage.Define(
+                LogLevel.Debug,
+                new EventId(0, nameof(GetList)),
+                "Start request"
+            );
+
+        private static readonly Action<ILogger, Exception> LogGetListInformationCallback
+            = LoggerMessage.Define(
+                LogLevel.Information,
+                new EventId(0, nameof(GetList)),
+                "Get items from service"
+            );
+
         [HttpGet]
         [ProducesResponseType(typeof(IList<string>), StatusCodes.Status200OK)]
         public IActionResult GetList()
         {
-            _logger.LogDebug("Start request");
+            if (_logger.IsEnabled(LogLevel.Debug))
+            {
+                LogGetListDebugCallback(
+                    _logger,
+                    null
+                );
+            }
 
-            _logger.LogInformation("Get items from service");
+            if (_logger.IsEnabled(LogLevel.Information))
+            {
+                LogGetListInformationCallback(
+                    _logger,
+                    null
+                );
+            }
             var list = _service.GetList();
 
             return Ok(list);

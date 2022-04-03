@@ -1,4 +1,5 @@
-﻿using GodelTech.XUnit.Logging.IntegrationTests.Fakes.Business.Contracts;
+﻿using System;
+using GodelTech.XUnit.Logging.IntegrationTests.Fakes.Business.Contracts;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Extensions.Logging;
@@ -21,9 +22,22 @@ namespace GodelTech.XUnit.Logging.IntegrationTests.Fakes.Business
             _logger = logger;
         }
 
+        private static readonly Action<ILogger, Exception> LogGetListInformationCallback
+            = LoggerMessage.Define(
+                LogLevel.Information,
+                new EventId(0, nameof(GetList)),
+                "Get list"
+            );
+
         public IList<string> GetList()
         {
-            _logger.LogInformation("Get list");
+            if (_logger.IsEnabled(LogLevel.Information))
+            {
+                LogGetListInformationCallback(
+                    _logger,
+                    null
+                );
+            }
 
             return Items
                 .ToList();
