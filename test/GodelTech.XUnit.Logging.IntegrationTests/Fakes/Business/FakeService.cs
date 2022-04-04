@@ -31,13 +31,10 @@ namespace GodelTech.XUnit.Logging.IntegrationTests.Fakes.Business
 
         public IList<string> GetList()
         {
-            if (_logger.IsEnabled(LogLevel.Information))
-            {
-                LogGetListInformationCallback(
-                    _logger,
-                    null
-                );
-            }
+            LogGetListInformationCallback(
+                _logger,
+                null
+            );
 
             return Items
                 .ToList();
