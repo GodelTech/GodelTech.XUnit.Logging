@@ -40,21 +40,15 @@ namespace GodelTech.XUnit.Logging.IntegrationTests.Fakes.Controllers
         [ProducesResponseType(typeof(IList<string>), StatusCodes.Status200OK)]
         public IActionResult GetList()
         {
-            if (_logger.IsEnabled(LogLevel.Debug))
-            {
-                LogGetListDebugCallback(
-                    _logger,
-                    null
-                );
-            }
+            LogGetListDebugCallback(
+                _logger,
+                null
+            );
 
-            if (_logger.IsEnabled(LogLevel.Information))
-            {
-                LogGetListInformationCallback(
-                    _logger,
-                    null
-                );
-            }
+            LogGetListInformationCallback(
+                _logger,
+                null
+            );
             var list = _service.GetList();
 
             return Ok(list);
