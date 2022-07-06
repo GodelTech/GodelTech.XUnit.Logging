@@ -20,7 +20,10 @@ namespace GodelTech.XUnit.Logging.Tests
 
             var exception = new ArgumentNullException();
 
-            Func<object, Exception, string> formatter = (obj, e) => $"{((FakeTestLogEntryState) obj).Name} - {e.GetType()}";
+            static string formatter(object obj, Exception e)
+            {
+                return $"{((FakeTestLogEntryState) obj).Name} - {e.GetType()}";
+            }
 
             // Act
             var result = new TestLogEntry(

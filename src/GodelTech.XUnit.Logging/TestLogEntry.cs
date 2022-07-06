@@ -15,7 +15,7 @@ namespace GodelTech.XUnit.Logging
         /// <param name="eventId">Id of the event.</param>
         /// <param name="state">The entry to be written. Can be also an object.</param>
         /// <param name="exception">The exception related to this entry.</param>
-        /// <param name="formatter">Function to create a <see cref="System.String" /> message of the <paramref name="state" /> and <paramref name="exception" />.</param>
+        /// <param name="formatter">Function to create a <see cref="string" /> message of the <paramref name="state" /> and <paramref name="exception" />.</param>
         /// <param name="categoryName">The category name.</param>
         /// <param name="usesScopes">Indicates if logging has scopes.</param>
         public TestLogEntry(
@@ -57,7 +57,7 @@ namespace GodelTech.XUnit.Logging
         public Exception Exception { get; }
 
         /// <summary>
-        /// Function to create a <see cref="System.String" /> message of the State and Exception.
+        /// Function to create a <see cref="string" /> message of the State and Exception.
         /// </summary>
         public Func<object, Exception, string> Formatter { get; }
 

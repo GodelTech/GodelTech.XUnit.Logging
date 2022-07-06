@@ -26,8 +26,10 @@ namespace GodelTech.XUnit.Logging.IntegrationTests.DependencyInjection
 
         public WebHostBuilderExtensionsTests(ITestOutputHelper output)
         {
-            _fixture = new AppTestFixture();
-            _fixture.Output = output;
+            _fixture = new AppTestFixture
+            {
+                Output = output
+            };
         }
 
         public void Dispose()

@@ -33,20 +33,23 @@ namespace GodelTech.XUnit.Logging
                 switch (consoleLoggerOptions.Value.FormatterName)
                 {
                     case ConsoleFormatterNames.Simple:
-                    {
-                        consoleFormatterOptions = serviceProvider.GetService<IOptions<SimpleConsoleFormatterOptions>>();
-                        break;
-                    }
+                        {
+                            consoleFormatterOptions = serviceProvider.GetService<IOptions<SimpleConsoleFormatterOptions>>();
+                            break;
+                        }
                     case ConsoleFormatterNames.Json:
-                    {
-                        consoleFormatterOptions = serviceProvider.GetService<IOptions<JsonConsoleFormatterOptions>>();
-                        break;
-                    }
+                        {
+                            consoleFormatterOptions = serviceProvider.GetService<IOptions<JsonConsoleFormatterOptions>>();
+                            break;
+                        }
                     case ConsoleFormatterNames.Systemd:
-                    {
-                        consoleFormatterOptions = serviceProvider.GetService<IOptions<ConsoleFormatterOptions>>();
+                        {
+                            consoleFormatterOptions = serviceProvider.GetService<IOptions<ConsoleFormatterOptions>>();
+                            break;
+                        }
+
+                    default:
                         break;
-                    }
                 }
 
                 if (consoleFormatterOptions != null)
