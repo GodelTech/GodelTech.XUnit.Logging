@@ -79,14 +79,14 @@ namespace GodelTech.XUnit.Logging.Tests
 
             var exception = new ArgumentNullException();
 
-            Func<object, Exception, string> formatter = (obj, e) => $"{((FakeTestLogEntryState) obj).Name} - {e.GetType()}";
+            static string formatter(object obj, Exception e) => $"{((FakeTestLogEntryState) obj).Name} - {e.GetType()}";
 
             var testLoggerContextAccessor = new TestLoggerContextAccessor();
 
             var logger = new TestLogger(null, testLoggerContextAccessor, null, "Test CategoryName", true);
 
             // Act
-            logger.Log<FakeTestLogEntryState>(LogLevel.Critical, eventId, state, exception, formatter);
+            logger.Log<FakeTestLogEntryState>(LogLevel.Critical, eventId, state, exception, (Func<object, Exception, string>) formatter);
 
             // Assert
             var entry = Assert.Single(testLoggerContextAccessor.TestLoggerContext.Entries);

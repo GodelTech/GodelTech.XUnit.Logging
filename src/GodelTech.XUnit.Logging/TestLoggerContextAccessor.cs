@@ -18,10 +18,7 @@
         /// <inheritdoc/>
         public TestLoggerContext TestLoggerContext
         {
-            get
-            {
-                return _testLoggerContextCurrent.Context;
-            }
+            get => _testLoggerContextCurrent.Context;
             set
             {
                 var holder = _testLoggerContextCurrent;

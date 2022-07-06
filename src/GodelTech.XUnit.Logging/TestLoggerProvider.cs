@@ -5,7 +5,7 @@ using Xunit.Abstractions;
 namespace GodelTech.XUnit.Logging
 {
     /// <summary>
-    /// Represents a type that can create instances of <see cref="Microsoft.Extensions.Logging.ILogger" />.
+    /// Represents a type that can create instances of <see cref="ILogger" />.
     /// </summary>
     public class TestLoggerProvider : ILoggerProvider, ISupportExternalScope
     {

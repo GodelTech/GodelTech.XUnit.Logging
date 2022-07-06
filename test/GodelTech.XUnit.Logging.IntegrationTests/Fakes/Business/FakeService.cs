@@ -1,7 +1,7 @@
 ﻿using System;
-using GodelTech.XUnit.Logging.IntegrationTests.Fakes.Business.Contracts;
 using System.Collections.Generic;
 using System.Linq;
+using GodelTech.XUnit.Logging.IntegrationTests.Fakes.Business.Contracts;
 using Microsoft.Extensions.Logging;
 
 namespace GodelTech.XUnit.Logging.IntegrationTests.Fakes.Business
