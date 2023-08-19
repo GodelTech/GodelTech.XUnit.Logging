@@ -50,10 +50,7 @@ namespace GodelTech.XUnit.Logging
 
             if (formatter == null) throw new ArgumentNullException(nameof(formatter));
 
-            if (_output != null)
-            {
-                _output.WriteLine(formatter.Invoke(state, exception));
-            }
+            _output?.WriteLine(formatter.Invoke(state, exception));
 
             if (_testLoggerContextAccessor != null)
             {
