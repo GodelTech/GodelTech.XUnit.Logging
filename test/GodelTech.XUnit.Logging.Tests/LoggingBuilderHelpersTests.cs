@@ -244,5 +244,53 @@ namespace GodelTech.XUnit.Logging.Tests
             // Assert
             Assert.Equal(expectedResult, result);
         }
+
+        [Theory]
+        [MemberData(nameof(ConfigurationMemberData))]
+        public void UsesScopes_WithConfiguration_Success(
+            IConfiguration configuration,
+            bool expectedResult)
+        {
+            // Arrange
+            _serviceCollection.AddSingleton(configuration);
+
+            // Act
+            var result = _mockLoggingBuilder.Object.UsesScopes();
+
+            // Assert
+            Assert.Equal(expectedResult, result);
+        }
+
+        [Fact]
+        public void UsesScopes_WithConfigurations_Success()
+        {
+            // Arrange
+            var configurationRoot = new ConfigurationBuilder()
+                .AddInMemoryCollection(
+                    new Dictionary<string, string>
+                    {
+                        {"Logging:Console:IncludeScopes", bool.TrueString}
+                    }
+                )
+                .Build();
+
+            var configuration = new ConfigurationBuilder()
+                .AddInMemoryCollection(
+                    new Dictionary<string, string>
+                    {
+                        {"Logging:Console:IncludeScopes", bool.FalseString}
+                    }
+                )
+                .Build();
+
+            _serviceCollection.AddSingleton(configurationRoot);
+            _serviceCollection.AddSingleton<IConfiguration>(configuration);
+
+            // Act
+            var result = _mockLoggingBuilder.Object.UsesScopes();
+
+            // Assert
+            Assert.True(result);
+        }
     }
 }
