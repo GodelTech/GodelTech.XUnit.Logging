@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Xunit.Abstractions;
 
 namespace GodelTech.XUnit.Logging.IntegrationTests
@@ -23,6 +24,7 @@ namespace GodelTech.XUnit.Logging.IntegrationTests
                     {
                         x.UseStartup<TestStartup>()
                             .UseTestServer()
+                            .ConfigureServices(services => services.AddLogging(configure => configure.AddConsole()))
                             .ConfigureTestLogging(Output, TestLoggerContextAccessor);
                     }
                 );

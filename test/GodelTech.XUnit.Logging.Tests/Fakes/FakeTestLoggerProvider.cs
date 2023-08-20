@@ -1,4 +1,5 @@
-﻿using Xunit.Abstractions;
+﻿using Microsoft.Extensions.Logging;
+using Xunit.Abstractions;
 
 namespace GodelTech.XUnit.Logging.Tests.Fakes
 {
@@ -12,6 +13,10 @@ namespace GodelTech.XUnit.Logging.Tests.Fakes
         {
 
         }
+
+        public IExternalScopeProvider ExposedScopeProvider => ScopeProvider;
+
+        public bool ExposedIsDisposed => IsDisposed;
 
         public void ExposedDispose(bool disposing)
         {

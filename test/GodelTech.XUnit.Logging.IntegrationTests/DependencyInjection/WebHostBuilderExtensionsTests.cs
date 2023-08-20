@@ -8,6 +8,7 @@ using GodelTech.XUnit.Logging.IntegrationTests.Fakes.Business.Contracts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -70,6 +71,16 @@ namespace GodelTech.XUnit.Logging.IntegrationTests.DependencyInjection
                     }
                 )
                 .CreateClient();
+        }
+
+        [Fact]
+        public void ConfigureTestLogging_Registered()
+        {
+            // Arrange & Act & Assert
+            var services = _fixture.Services.GetServices<ILoggerProvider>();
+
+            var service = Assert.Single(services);
+            Assert.IsType<TestLoggerProvider>(service);
         }
 
         [Fact]
