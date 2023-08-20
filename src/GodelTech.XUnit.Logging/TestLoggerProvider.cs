@@ -13,9 +13,6 @@ namespace GodelTech.XUnit.Logging
         private readonly ITestLoggerContextAccessor _testLoggerContextAccessor;
         private readonly bool _usesScopes;
 
-        private IExternalScopeProvider _scopeProvider;
-        private bool _isDisposed;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="TestLoggerProvider"/> class.
         /// </summary>
@@ -32,13 +29,23 @@ namespace GodelTech.XUnit.Logging
             _usesScopes = usesScopes;
         }
 
+        /// <summary>
+        /// Scope provider.
+        /// </summary>
+        protected IExternalScopeProvider ScopeProvider { get; private set; }
+
+        /// <summary>
+        /// Is disposed.
+        /// </summary>
+        protected bool IsDisposed { get; private set; }
+
         /// <inheritdoc />
         public ILogger CreateLogger(string categoryName)
         {
             return new TestLogger(
                 _output,
                 _testLoggerContextAccessor,
-                _scopeProvider,
+                ScopeProvider,
                 categoryName,
                 _usesScopes
             );
@@ -47,13 +54,15 @@ namespace GodelTech.XUnit.Logging
         /// <inheritdoc />
         public void SetScopeProvider(IExternalScopeProvider scopeProvider)
         {
-            _scopeProvider = scopeProvider;
+            ScopeProvider = scopeProvider;
         }
 
         /// <inheritdoc />
         public void Dispose()
         {
+            // Stryker disable once boolean
             Dispose(true);
+            // Stryker disable once statement
             GC.SuppressFinalize(this);
         }
 
@@ -72,20 +81,23 @@ namespace GodelTech.XUnit.Logging
         /// </param>
         protected virtual void Dispose(bool disposing)
         {
-            if (!disposing)
-            {
-                // unmanaged resources would be cleaned up here.
-                return;
-            }
-
-            if (_isDisposed)
+            // Stryker disable once block
+            if (IsDisposed)
             {
                 // no need to dispose twice.
+                // Stryker disable once statement
                 return;
             }
 
-            // free managed resources
-            _isDisposed = true;
+            // Stryker disable once boolean
+            if (disposing)
+            {
+                // dispose managed state (managed objects)
+            }
+
+            // free unmanaged resources (unmanaged objects) and override finalizer
+            // set large fields to null
+            IsDisposed = true;
         }
 
         #endregion

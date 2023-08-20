@@ -9,7 +9,7 @@ namespace GodelTech.XUnit.Logging.Tests
 {
     public sealed class TestLoggerProviderTests : IDisposable
     {
-        private readonly TestLoggerProvider _provider;
+        private readonly FakeTestLoggerProvider _provider;
 
         public TestLoggerProviderTests()
         {
@@ -44,52 +44,48 @@ namespace GodelTech.XUnit.Logging.Tests
             // Arrange
             var mockExternalScopeProvider = new Mock<IExternalScopeProvider>(MockBehavior.Strict);
 
-            // Act & Assert
+            // Act
             _provider.SetScopeProvider(mockExternalScopeProvider.Object);
 
             // Assert
-            Assert.NotNull(_provider);
+            Assert.Equal(mockExternalScopeProvider.Object, _provider.ExposedScopeProvider);
         }
 
         [Fact]
-        public void Dispose_WithFalse()
+        public void Dispose_Success()
         {
             // Arrange
-            var fakeProvider = (FakeTestLoggerProvider) _provider;
+            FakeTestLoggerProvider provider;
 
-            // Act
-            fakeProvider.ExposedDispose(false);
+            // Act & Assert
+            using (provider = new FakeTestLoggerProvider(null, null, false))
+            {
+                Assert.False(provider.ExposedIsDisposed);
+            }
 
-            // Assert
-            Assert.NotNull(fakeProvider);
+            Assert.True(provider.ExposedIsDisposed);
         }
 
         [Fact]
         public void Dispose_WhenIsDisposed()
         {
-            // Arrange
-            var fakeProvider = (FakeTestLoggerProvider) _provider;
+            // Arrange & Act
+            _provider.Dispose();
 
-            // Act
-            fakeProvider.Dispose();
-
-            fakeProvider.ExposedDispose(true);
+            _provider.ExposedDispose(true);
 
             // Assert
-            Assert.NotNull(fakeProvider);
+            Assert.True(_provider.ExposedIsDisposed);
         }
 
         [Fact]
-        public void Dispose_WhenDbContextIsNull()
+        public void Dispose_WithFalse()
         {
-            // Arrange
-            using var fakeProvider = new FakeTestLoggerProvider(null, null, false);
-
-            // Act
-            fakeProvider.ExposedDispose(true);
+            // Arrange & Act
+            _provider.ExposedDispose(false);
 
             // Assert
-            Assert.NotNull(fakeProvider);
+            Assert.True(_provider.ExposedIsDisposed);
         }
     }
 }
