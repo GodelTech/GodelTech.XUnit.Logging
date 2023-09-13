@@ -55,23 +55,58 @@ namespace GodelTech.XUnit.Logging.Tests
         public void Dispose_Success()
         {
             // Arrange
-            FakeTestLoggerProvider provider;
+            var disposing = false;
+            var disposeCalls = 0;
 
-            // Act & Assert
-            using (provider = new FakeTestLoggerProvider(null, null, false))
+            bool isDisposedBeforeDispose;
+            var isDisposedAfterDispose = false;
+
+            WeakReference weak;
+
+            void LocalFunction()
             {
-                Assert.False(provider.ExposedIsDisposed);
+                var provider = new FakeTestLoggerProvider(
+                    null,
+                    null,
+                    false,
+                    val =>
+                    {
+                        disposing = val;
+                        disposeCalls++;
+                    },
+                    val => isDisposedAfterDispose = val
+                );
+
+                weak = new WeakReference(provider, true);
+
+                isDisposedBeforeDispose = provider.ExposedIsDisposed;
+
+                provider.Dispose();
             }
 
-            Assert.True(provider.ExposedIsDisposed);
+            // Act
+            LocalFunction();
+
+            // Arrange
+            Assert.False(isDisposedBeforeDispose);
+
+            GC.Collect(0, GCCollectionMode.Forced);
+            GC.WaitForPendingFinalizers();
+
+            Assert.True(disposing);
+            Assert.Equal(1, disposeCalls);
+            Assert.True(isDisposedAfterDispose);
+
+            Assert.False(weak.IsAlive);
         }
 
         [Fact]
         public void Dispose_WhenIsDisposed()
         {
-            // Arrange & Act
+            // Arrange
             _provider.Dispose();
 
+            // Act
             _provider.ExposedDispose(true);
 
             // Assert

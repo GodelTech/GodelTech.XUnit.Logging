@@ -60,7 +60,6 @@ namespace GodelTech.XUnit.Logging
         /// <inheritdoc />
         public void Dispose()
         {
-            // Stryker disable once boolean
             Dispose(true);
             // Stryker disable once statement
             GC.SuppressFinalize(this);
@@ -81,22 +80,6 @@ namespace GodelTech.XUnit.Logging
         /// </param>
         protected virtual void Dispose(bool disposing)
         {
-            // Stryker disable once block
-            if (IsDisposed)
-            {
-                // no need to dispose twice.
-                // Stryker disable once statement
-                return;
-            }
-
-            // Stryker disable once boolean
-            if (disposing)
-            {
-                // dispose managed state (managed objects)
-            }
-
-            // free unmanaged resources (unmanaged objects) and override finalizer
-            // set large fields to null
             IsDisposed = true;
         }
 
