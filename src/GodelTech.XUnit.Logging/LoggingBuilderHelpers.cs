@@ -19,7 +19,7 @@ namespace GodelTech.XUnit.Logging
         /// <returns>True if logging uses scopes.</returns>
         public static bool UsesScopes(this ILoggingBuilder builder)
         {
-            if (builder == null) throw new ArgumentNullException(nameof(builder));
+            ArgumentNullException.ThrowIfNull(builder);
 
             var serviceProvider = builder.Services.BuildServiceProvider();
 
