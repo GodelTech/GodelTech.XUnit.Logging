@@ -48,7 +48,7 @@ namespace GodelTech.XUnit.Logging
         {
             if (!IsEnabled(logLevel)) return;
 
-            if (formatter == null) throw new ArgumentNullException(nameof(formatter));
+            ArgumentNullException.ThrowIfNull(formatter);
 
             _output?.WriteLine(formatter.Invoke(state, exception));
 
