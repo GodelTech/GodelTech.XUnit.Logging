@@ -8,9 +8,11 @@
     <Company>Godel Technologies</Company>
     <Description>Library contains helper for getting logs in xunit testing.</Description>
     <Copyright>Godel Technologies 2021</Copyright>
-    <PackageLicenseUrl>https://github.com/GodelTech/GodelTech.XUnit.Logging/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/GodelTech/GodelTech.XUnit.Logging/wiki</PackageProjectUrl>
+    <PackageIcon>icon.png</PackageIcon>
     <PackageIconUrl>https://www.gravatar.com/avatar/839234621070de51e7b9cabd5ceee8fe?s=64</PackageIconUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/GodelTech/GodelTech.XUnit.Logging</RepositoryUrl>
     <PackageTags>dotnet core xunit logging test</PackageTags>
 
@@ -28,6 +30,17 @@
     <!-- SonarQube needs this -->
     <ProjectGuid>{00000000-0000-0000-0000-000000000010}</ProjectGuid>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\icon.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
