@@ -1,5 +1,5 @@
 # GodelTech.XUnit.Logging
-
+GodelTech.XUnit.Logging is a helper library for capturing logs in xUnit tests. It enables seamless integration of logging within xUnit test frameworks, allowing developers to access log entries and utilize them in their tests. 
 ## Overview
 
 `GodelTech.XUnit.Logging` contains helper for getting logs in xunit testing.
@@ -68,3 +68,6 @@ _fixture
     .Entries;
 ```
 You can check example of usage in Integration Tests for this library here: https://github.com/GodelTech/GodelTech.XUnit.Logging/tree/main/test/GodelTech.XUnit.Logging.IntegrationTests.
+
+# License
+This project is licensed under the MIT License. See the LICENSE file for more details.
